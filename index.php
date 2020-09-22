@@ -58,7 +58,7 @@ function getSMS(Request $request, Response $response, $args) {
 function addSMS(Request $request, Response $response) {
     $content = $request->getParam('content');
     if (!empty($content)){
-    $Getsms = htmlentities($content, ENT_QUOTES, 'UTF-8');
+    $Getsms = htmlspecialchars($content, ENT_COMPAT);
     $sql = "INSERT INTO tamilcontent (content) VALUES (:content)";
     try{
         $db = getDB();
