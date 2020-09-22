@@ -57,6 +57,7 @@ function getSMS(Request $request, Response $response, $args) {
 
 function addSMS(Request $request, Response $response) {
     $content = $request->getParam('content');
+    if (!empty($content)){
     $Getsms = htmlentities($content, ENT_QUOTES, 'UTF-8');
     $sql = "INSERT INTO tamilcontent (content) VALUES (:content)";
     try{
@@ -67,7 +68,10 @@ function addSMS(Request $request, Response $response) {
         echo '{"notice": {"text": "Post Added"}';
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
-    }
+     }
+    } else {
+    echo '{"error": {"text": "Please add the Post Content"}';
+  }
 };
 
 $app->run();
