@@ -5,7 +5,7 @@ header('X-XSS-Protection: 1; mode=block');
 header('X-Content-Type-Options: nosniff');
 header('Strict-Transport-Security: max-age=63072000');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET');
+header('Access-Control-Allow-Methods: POST, GET, PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 header('X-Robots-Tag: noindex, nofollow', true);
 
@@ -18,7 +18,7 @@ require 'vendor/autoload.php';
 $app = new Slim\App();
 
 $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
-    "path" => "/add",
+    "path" => ["/add", "/update"],
     "realm" => "Protected",
     "users" => [
         "username" => "password" // https://www.htaccesstools.com/htpasswd-%20generator/ - Don't add your plain password here
