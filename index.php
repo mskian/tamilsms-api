@@ -38,6 +38,7 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
 $app->get('/all','getSMS');
 $app->get('/random','getRandom');
 $app->post('/add','addSMS');
+$app->put('/update/{id}','addUpdate');
 
 $app->get('/', function (Request $request, Response $response) {
   $response->withStatus(200)->write("API v0.0.1");
@@ -88,6 +89,27 @@ function addSMS(Request $request, Response $response) {
     echo '{"error": {"text": "Please add the Post Content"}';
   }
 };
+
+function addUpdate(Request $request, Response $response) {
+    $id = $request->getAttribute('id');
+    $content = $request->getParam('content');
+    if (!empty($content)){
+    $GetUpdates = htmlspecialchars($content, ENT_COMPAT);
+    $sql = "UPDATE matchupdate SET tamilcontent = :tamilcontent WHERE id = $id";
+    try{
+        $db = getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':tamilcontent', $GetUpdates);
+        $stmt->execute();
+        echo '{"notice": {"text": "Post Updated"}';
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+     }
+    } else {
+    echo '{"error": {"text": "Please add the Post Content"}';
+  }
+};
+
 
 $app->run();
 
