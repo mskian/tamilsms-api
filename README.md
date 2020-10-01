@@ -67,6 +67,16 @@ curl --request PUT \
   --data 'content=Example Edited Tamil Content'
 ```
 
+## Enable FastCGI Cache (Nginx)
+
+- Open `/etc/nginx/nginx.conf`
+- Add this Below code inside http block
+
+```sh
+fastcgi_cache_path /etc/nginx/cache levels=1:2 keys_zone=sanapp:100m inactive=60m;
+fastcgi_cache_key "$scheme$request_method$host$request_uri";
+```
+
 > **you can Update this API According to your usage this is Just Example API for Tamil Content**
 
 ## LICENSE
