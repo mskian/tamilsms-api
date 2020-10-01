@@ -36,6 +36,7 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
 ]));
 
 $app->get('/all','getSMS');
+$app->get('/random','getRandom');
 $app->post('/add','addSMS');
 
 $app->get('/', function (Request $request, Response $response) {
@@ -44,12 +45,26 @@ $app->get('/', function (Request $request, Response $response) {
 });
 
 function getSMS(Request $request, Response $response, $args) {
+    $sql = "SELECT * FROM tamilcontent";
+    try {
+        $stmt = getDB()->query($sql);
+        $wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+        return $response->withJson($wines);
+       //echo json_encode($wines, JSON_PRETTY_PRINT);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+function getRandom(Request $request, Response $response, $args) {
     $sql = "SELECT * FROM tamilcontent ORDER by RAND() limit 1";
     try {
         $stmt = getDB()->query($sql);
         $wines = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-      echo json_encode($wines, JSON_PRETTY_PRINT);
+        return $response->withJson($wines);
+       //echo json_encode($wines, JSON_PRETTY_PRINT);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
