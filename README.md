@@ -39,11 +39,35 @@ CREATE TABLE `tamilcontent` (
 - That's all done
 
 ```sh
-https://api.example.com/all - Get all content randomly
-https://api.example.com/add - Post content to database
+https://api.example.com/all - Get all content
+https://api.example.com/random - Get Random Content
+https://api.example.com/add - Post the content into Database
+https://api.example.com/update/{id} - Update the Content in the Database
 ```
 
-you can Update this API According to your usage this is Just Example API for Tamil Content
+## Examples
+
+- Post Method
+
+```sh
+curl --request POST \
+  --url https://api.example.com/add \
+  --header 'authorization: Basic XXXXXXXXXXXXXXXXXXXXXXX' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'content=Example Tamil Content'
+```
+
+- PUT Method
+
+```sh
+curl --request PUT \
+  --url https://api.example.com/update/1 \
+  --header 'authorization: Basic XXXXXXXXXXXXXXXXXXXXXX' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'content=Example Edited Tamil Content'
+```
+
+> **you can Update this API According to your usage this is Just Example API for Tamil Content**
 
 ## LICENSE
 
