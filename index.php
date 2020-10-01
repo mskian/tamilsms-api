@@ -95,11 +95,11 @@ function addUpdate(Request $request, Response $response) {
     $content = $request->getParam('content');
     if (!empty($content)){
     $GetUpdates = htmlspecialchars($content, ENT_COMPAT);
-    $sql = "UPDATE matchupdate SET tamilcontent = :tamilcontent WHERE id = $id";
+    $sql = "UPDATE tamilcontent SET content = :content WHERE id = $id";
     try{
         $db = getDB();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':tamilcontent', $GetUpdates);
+        $stmt->bindParam(':content', $GetUpdates);
         $stmt->execute();
         echo '{"notice": {"text": "Post Updated"}';
     } catch(PDOException $e){
